@@ -96,16 +96,36 @@ public class CheeseController {
         return "cheese/index";
     }
 
+
+
+    /**
+     * It displays an edit form
+     *
+     * @param model is an Interface. It defines a holder for model attributes and primarily designed for adding attributes to the model
+     * @param cheeseId is an ID of cheese (see the field "id" of Cheese class)
+     * @return An Edit template
+     */
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int cheeseId){
-
-
 
         model.addAttribute("title", "Edit Cheese");
         model.addAttribute("cheese", cheeseDao.findOne(cheeseId));
         model.addAttribute("categories", categoryDao.findAll());
         return "cheese/edit";
     }
+
+    /**
+     * It processes an edit form
+     *
+     * @param model is an Interface. It defines a holder for model attributes and primarily designed for adding attributes to the model
+     * @param cheeseId is the ID of cheese (see the field "id" of Cheese class)
+     * @param cheese is the instance of edited cheese
+     * @param errors is an Interface. Stores and exposes information about data-binding and validation errors for a specific object.
+     * @param categoryId categoryId is the ID of the chosen category
+     * @return It redirects to the main page
+     */
+
+
 
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.POST)
     public String processEditForm(@PathVariable int cheeseId, @Valid Cheese cheese, Errors errors
@@ -120,7 +140,8 @@ public class CheeseController {
         }
 
         Cheese aCheese = cheeseDao.findOne(cheeseId);
-        aCheese.copy(cheese);
+        aCheese.setName(cheese.getName());
+        aCheese.setDescription(cheese.getDescription());
         Category cat = categoryDao.findOne(categoryId);
         aCheese.setCategory(cat);
         cheeseDao.save(aCheese);

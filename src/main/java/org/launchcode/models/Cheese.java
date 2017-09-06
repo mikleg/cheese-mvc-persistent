@@ -64,12 +64,5 @@ public class Cheese {
         this.category = category;
     }
 
-    public  void copy(Cheese obj)
-    {
 
-        this.name = obj.name;
-        this.description = obj.getDescription();
-        this.category = obj.getCategory();
-
-    }
 }
