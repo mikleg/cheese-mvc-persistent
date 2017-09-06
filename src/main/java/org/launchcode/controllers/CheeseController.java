@@ -39,8 +39,7 @@ public class CheeseController {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
         model.addAttribute("categories", categoryDao.findAll());
-        int debug =1;
-        //model.addAttribute("categoryId", debug);
+
         return "cheese/add";
     }
 
@@ -75,7 +74,7 @@ public class CheeseController {
         return "redirect:";
     }
 
-    @RequestMapping(value = "category/{id}")
+    @RequestMapping(value = "category/{id}", method = RequestMethod.GET)
     public String category(Model model, @PathVariable("id") int id) {
         Category cat = categoryDao.findOne(id);
         model.addAttribute("cheeses", cat.getCheeses());
