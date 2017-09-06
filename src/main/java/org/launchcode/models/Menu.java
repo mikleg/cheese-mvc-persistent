@@ -37,4 +37,10 @@ public class Menu {
     public void addItem(Cheese item) { cheeses.add(item); }
 
     public Menu(String name) { this.name = name; }
+
+    public void removeItem(Cheese item) {    //It added for fixing a bug with 'remove cheese' functionality
+        while (cheeses.contains(item))       //It added for fixing a bug with 'remove cheese' functionality
+            cheeses.remove(cheeses.indexOf(item))   //It added for fixing a bug with 'remove cheese' functionality
+            ;                                       //It added for fixing a bug with 'remove cheese' functionality
+    }
 }

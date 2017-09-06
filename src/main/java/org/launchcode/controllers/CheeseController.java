@@ -2,8 +2,10 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
+import org.launchcode.models.Menu;
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
+import org.launchcode.models.data.MenuDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class CheeseController {
     private CheeseDao cheeseDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private MenuDao menuDao; //It added for fixing a bug with 'remove cheese' functionality
 
     // Request path: /cheese
     @RequestMapping(value = "")
@@ -51,7 +55,7 @@ public class CheeseController {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
             model.addAttribute("categories", categoryDao.findAll());
-           
+
             return "cheese/add";
         }
         newCheese.setCategory(cat);
@@ -68,6 +72,13 @@ public class CheeseController {
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
+
+
+        for (Menu menu : menuDao.findAll()){    //It added for fixing a bug with 'remove cheese' functionality
+            for (int cheeseId : cheeseIds) {  //It added for fixing a bug with 'remove cheese' functionality
+                menu.removeItem(cheeseDao.findOne(cheeseId));  //It added for fixing a bug with 'remove cheese' functionality
+            }                                                   //It added for fixing a bug with 'remove cheese' functionality
+        }                                                       //It added for fixing a bug with 'remove cheese' functionality
 
         for (int cheeseId : cheeseIds) {
             cheeseDao.delete(cheeseId);
