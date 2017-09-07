@@ -37,7 +37,12 @@ public class Menu {
     public void addItem(Cheese item) { cheeses.add(item); }
 
     public Menu(String name) { this.name = name; }
-
+    /**
+     * It removes a given cheese from the menu (from List<Cheese> cheeses)
+     *
+     * @param item is a cheese for removing
+     *
+     */
     public void removeItem(Cheese item) {    //It added for fixing a bug with 'remove cheese' functionality
         while (cheeses.contains(item))       //It added for fixing a bug with 'remove cheese' functionality
             cheeses.remove(cheeses.indexOf(item))   //It added for fixing a bug with 'remove cheese' functionality
